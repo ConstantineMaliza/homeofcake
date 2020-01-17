@@ -10009,6 +10009,7 @@ textarea.form-control {
   -webkit-animation: loader-dash 1.5s ease-in-out infinite;
   animation: loader-dash 1.5s ease-in-out infinite;
   stroke-linecap: round; }
+  ::-webkit-inner-spin-button { display: none; }
 
 @-webkit-keyframes loader-rotate {
   100% {

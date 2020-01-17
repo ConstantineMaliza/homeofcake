@@ -155,7 +155,7 @@ Register.addEventListener('submit',(e) =>{
          
         const login=document.querySelector("#LoginForm");
         login.addEventListener('submit' , (e) => {
-
+            e.preventDefault();
             const email=login["email"].value;
             const password=login["password"].value;
 
@@ -170,20 +170,21 @@ Register.addEventListener('submit',(e) =>{
         
               }).then(cred =>{
                   const user_id=cred.user.uid;
-                  // alert(user_id);
-                  sessionStorage.setItem("userUID", user_id)
-                  // alert("login successfull");
-                  $('#loaderlogin').fadeOut('slow');
-                  database.ref("Register/"+ user_id).once('value', function(snapshot) {
 
-                    // var childKey = snapshot.key;
-                    var dataProfile = snapshot.val();
-          
-                    var category = dataProfile.category;
+                  sessionStorage.setItem("userUID", user_id);
+
+                  // $('#loaderlogin').fadeOut('slow');
+                  database.ref("Clients/"+ user_id).once('value', function(snapshot) {
+
+                    
+                    var dataProfile = snapshot.val();          
+                    var category = dataProfile.Category;
           
                     alert('Logged in as: '+ category);
-                    sessionStorage.setItem("Email", email);
-          
+                    sessionStorage.setItem("Email", dataProfile.Email);
+                    sessionStorage.setItem("FirstName", dataProfile.FirstName);
+                    sessionStorage.setItem("MiddleName", dataProfile.MiddleName);
+                    sessionStorage.setItem("LastName", dataProfile.LastName);
                     sessionStorage.setItem("userAccount", category);
           
                     // var userPhone = dataProfile.phone != null ? dataProfile.phone : "";
