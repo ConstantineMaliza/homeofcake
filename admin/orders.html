@@ -241,7 +241,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="Admin">Admin</span>
                 <img class="img-profile rounded-circle" src="../images/29.png">
               </a>
               <!-- Dropdown - User Information -->
@@ -290,8 +290,8 @@
                       <th>Control</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
+                  <tbody id="orders-list-output">
+                    <!-- <tr>
                       <td>Maliza</td>
                       <td class="text-center"><img src="../images/1.jpg" alt="" class="img-fluid img-thumbnail"style="max-width:100%;max-height:200px; height:auto; display:block;"</td>
                       <td>coco</td>
@@ -312,7 +312,7 @@
                       <td> <a href="#" class="btn btn-danger btn-circle">
                         <i class="fas fa-trash"></i>
                       </a></td>
-                    </tr>
+                    </tr> -->
                   </tbody>
                 </table>
               </div>
@@ -359,7 +359,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" id="logout" href="login.html">Logout</a>
         </div>
       </div>
     </div>
@@ -401,6 +401,17 @@
     </div>
   </div>
 
+   
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-storage.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+
+
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -417,6 +428,7 @@
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
+  <script src="./js/admin.js"></script>
 
 </body>
 
