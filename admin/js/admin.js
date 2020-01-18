@@ -42,11 +42,145 @@ database.ref('Trainers').on('value',function(snapshot){
         htmlregisterAll = htmlRegister + htmlregisterAll;
         if(t == childCounts) {
             document.getElementById("trainers").innerHTML=htmlregisterAll ;
-        }
 
-       
+        
+            
+        }
     });
 });
+//count the trainers
+database.ref('Trainers').on('value', function(snapshot) {
+
+    var childCounts = snapshot.numChildren();
+    
+    var i = 0;
+
+    var Trainers = 0;
+   
+    snapshot.forEach(function(childSnapshot) {
+
+      i++;
+      var childData = childSnapshot.val();
+
+      if(childData.Category == "Trainer") {
+        Trainers++;
+      }
+
+      if(i == childCounts) {
+        document.getElementById("trainer").innerHTML=Trainers;
+      }
+
+    });
+});
+//count the Clients
+database.ref('Clients').on('value', function(snapshot) {
+
+    var childCounts = snapshot.numChildren();
+    
+    var i = 0;
+
+    var Clients = 0;
+   
+    snapshot.forEach(function(childSnapshot) {
+
+      i++;
+      var childData = childSnapshot.val();
+
+      if(childData.Category == "Booking") {
+        Clients++;
+      }
+
+      if(i == childCounts) {
+        document.getElementById("client").innerHTML=Clients;
+      }
+
+    });
+});
+//count the wedding
+database.ref('Wedding').on('value', function(snapshot) {
+
+    var childCounts = snapshot.numChildren();
+    
+    var i = 0;
+
+    var Wedding = 0;
+   
+    snapshot.forEach(function(childSnapshot) {
+
+      i++;
+      Wedding++;
+
+      if(i == childCounts) {
+        document.getElementById("wedding").innerHTML=Wedding;
+      }
+
+    });
+});
+//count the birtday
+database.ref('Birthday').on('value', function(snapshot) {
+
+    var childCounts = snapshot.numChildren();
+    
+    var i = 0;
+
+    var Birthday = 0;
+   
+    snapshot.forEach(function(childSnapshot) {
+
+      i++;
+      var childData = childSnapshot.val();
+
+        Birthday++;
+    
+
+      if(i == childCounts) {
+        document.getElementById("birthday").innerHTML=Birthday;
+      }
+
+    });
+});
+//count the Ceremoniy
+database.ref('Graduation').on('value', function(snapshot) {
+
+    var childCounts = snapshot.numChildren();
+    
+    var i = 0;
+
+    var Graduation = 0;
+   
+    snapshot.forEach(function(childSnapshot) {
+
+      i++;
+     
+      Graduation++;
+
+      if(i == childCounts) {
+        document.getElementById("graduation").innerHTML=Graduation;
+      }
+
+    });
+});
+//count the Clients
+database.ref('Special').on('value', function(snapshot) {
+
+    var childCounts = snapshot.numChildren();
+    
+    var i = 0;
+
+    var Special = 0;
+   
+    snapshot.forEach(function(childSnapshot) {
+
+      i++;
+      Special++;  
+      if(i == childCounts) {
+        document.getElementById("special").innerHTML=Special;
+      }
+
+    });
+});
+
+
 
 function Trainerdelete(childUID, user_id) {
                               

@@ -283,7 +283,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Clients</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">35</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800" id="client">35</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-user fa-2x text-gray-300"></i>
@@ -300,7 +300,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Trainers</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">50</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800" id="trainer">50</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-user  fa-2x text-gray-300"></i>
@@ -342,6 +342,80 @@
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-comments fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+            <!-- Wedding  -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Wedding cake</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800" id="wedding">35</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas  fa-birthday-cake fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Birthday-->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Birthday cake</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800" id="birthday">50</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-birthday-cake fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ceremony -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Ceremony cake</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="graduation">24</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-birthday-cake fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--Special-->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Special occasion</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800" id="special">18000 FRW</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-utensils fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -459,7 +533,7 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const database = firebase.database();
-    firebase.analytics();
+    firebase.analytics();    
   </script>
   <script src="js/admin.js"></script>
   <!-- Bootstrap core JavaScript-->
