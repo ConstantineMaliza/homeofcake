@@ -160,7 +160,7 @@ database.ref('Graduation').on('value', function(snapshot) {
 
     });
 });
-//count the Clients
+//count the Special
 database.ref('Special').on('value', function(snapshot) {
 
     var childCounts = snapshot.numChildren();
@@ -231,6 +231,43 @@ function Trainerdelete(childUID, user_id) {
        
     });
 });
+
+  //list of Order
+
+  database.ref('orders').on('value',function(snapshot){
+    var htmlClientsAll = "";
+    var childCounts = snapshot.numChildren();
+    var t = 0;
+    var i = childCounts + 1;
+   
+    snapshot.forEach(function(childSnapshot){
+        if(t==0){
+            htmlClientsAll = "";  
+        }
+        t++;
+        i--;
+        var childUID = childSnapshot.key;
+        var childData = childSnapshot.val();
+        var htmlClients="";
+            htmlClients+="<tr>";
+            htmlClients+="<td>"+i+"</td>";
+            htmlClients+="<td>"+childData.FullName+"</td>";
+            htmlClients+="<td class='text-center'><img src=\""+childData.Photo+"\"  class='img-fluid img-thumbnail'style='max-width:100%;max-height:200px; height:auto; display:block;'</td>";          
+            htmlClients+="<td>"+childData.Date+"-"+childData.Time+"</td>";
+            htmlClients+="<td>"+childData.Quantity+"</td>";
+            htmlClients+="<td>"+childData.Total+"</td>";
+            htmlClients+="<td>"+childData.Description+"</td>";
+            htmlClients+="<td><a href='#userdelete'class='btn btn-danger btn-circle'><i class='fas fa-trash'onclick=\"userdelete("+"'linedeleteregister"+childUID + "', '"+childUID+"')\"" +" ></i></a>";
+            htmlClients+="</td>";
+            htmlClients+="</tr>";
+            htmlClientsAll = htmlClients + htmlClientsAll;
+        if(t == childCounts) {
+            document.getElementById("orders").innerHTML=htmlClientsAll ;
+        }
+
+       
+    });
+});
 function userdelete(childUID, user_id) {
                               
     database.ref('Clients').child(user_id).remove().then(resut => {
@@ -294,3 +331,38 @@ function userdelete(childUID, user_id) {
     }
     var uid=database.ref('Photo').push().key;
     
+//count Comment
+database.ref('Comments').on('value', function(snapshot) {
+
+
+    var childCounts = snapshot.numChildren();
+    
+    var i = 0;
+
+    var Comments = 0;
+   
+    snapshot.forEach(function(childSnapshot) {
+
+      i++;
+      Comments++;  
+      if(i == childCounts) {
+        document.getElementById("comments").innerHTML=Comments;
+      }
+
+      var childUid = snapshot.val();
+      var childData = snapshot.val();
+
+      html=`
+      <div class="dropdown-list-image mr-3">
+        <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
+        <div class="status-indicator bg-success"></div>
+      </div>
+      <div class="font-weight-bold">
+        <div class="text-truncate">${childData.message}</div>
+        <div class="small text-gray-500">${childData.date}</div>
+      </div>  
+      `;
+      document.getElementById("commentmessage").innerHTML=html;
+
+    });
+});

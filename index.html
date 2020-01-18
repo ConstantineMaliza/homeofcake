@@ -210,10 +210,10 @@
         </div>   		
     	</div>
     	<div class="container">
-    		<div class="row" id="wedding">
-    			<div class="col-md-6 col-lg-3">
+    		<div class="row">
+    			<div class="col-md-6 col-lg-3"id="wedding">
     				<div class="product">
-    					<a href="images/1.jpg" class="image-popup img-prod"><img class="img-fluid" src="images/1.jpg" alt="Colorlib Template">
+    					<a href="#" class=" img-prod"><img class="img-fluid" src="images/1.jpg" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
@@ -235,9 +235,10 @@
     					</div>
     				</div>
     			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
+    			
+    			<div class="col-md-6 col-lg-3"id="Birthday">
     				<div class="product">
-    					<a href="images/1.jpg" class="image-popup img-prod"><img class="img-fluid" src="images/1.jpg" alt="Colorlib Template">
+    					<a href="#" class=" img-prod"><img class="img-fluid" src="images/1.jpg" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
@@ -259,9 +260,10 @@
     					</div>
     				</div>
     			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
+    			
+    			<div class="col-md-6 col-lg-3"id="Special">
     				<div class="product">
-    					<a href="images/1.jpg" class="image-popup img-prod"><img class="img-fluid" src="images/1.jpg" alt="Colorlib Template">
+    					<a href="#" class=" img-prod"><img class="img-fluid" src="images/1.jpg" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
@@ -283,9 +285,10 @@
     					</div>
     				</div>
     			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
+    			
+    			<div class="col-md-6 col-lg-3"id="Graduation">
     				<div class="product">
-    					<a href="images/1.jpg" class="image-popup img-prod"><img class="img-fluid" src="images/1.jpg" alt="Colorlib Template">
+    					<a href="#" class=" img-prod"><img class="img-fluid" src="images/1.jpg" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
@@ -307,6 +310,7 @@
     					</div>
     				</div>
     			</div>
+    			
     			
     		</div>
     	</div>
@@ -384,7 +388,14 @@
 
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-storage.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
 <script>
   // Your web app's Firebase configuration
   var firebaseConfig = {
@@ -410,36 +421,125 @@
 
 	var childUID = childSnapshot.key;
 	var childData = childSnapshot.val();
-	var html=`
-	<div class="product">
-		<a href="images/1.jpg" class="image-popup img-prod"><img class="img-fluid" src="images/1.jpg" alt="Colorlib Template">
-			<div class="overlay"></div>
-		</a>
-		<div class="text py-3 pb-4 px-3 text-center">
-			
-			<div class="d-flex">
-				<div class="pricing">
-					<p class="price"><span class="price-sale">80000FRW</span></p>
-				</div>
-			</div>
-			<div class="bottom-area d-flex px-3">
-				<div class="m-auto d-flex">
-					
-					<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-						<span><i class=""></i>Book</span>
-					</a>
-					
-				</div>
-			</div>
-		</div>
-	</div>
-
-	`;	
+	var html="";
+	html+="<div class='product'>";
+	html+="<a href='' class=' img-prod'><img src=\""+childData.Photo+"\"class='img-fluid'>";
+	html+="<div class='overlay'></div></a>";
+	html+="<div class='text py-3 pb-4 px-3 text-center'>";
+	html+="<div class='d-flex'>";
+	html+="<div class='pricing'>";
+	html+="<p class='price'><span class='price-sale text-primary'>"+childData.Price+" RWF</span></p>";
+	html+="</div>"; 
+	html+="</div>";
+	html+="<div class='bottom-area d-flex px-3'>";
+	html+="<div class='m-auto d-flex'>";
+	html+="<a href='#read_page' class='buy-now d-flex justify-content-center align-items-center mx-1'  onclick=\"read_page('"+childUID+"')\"><span><i class=''></i>Book</span></a>";
+	html+="</div>"; 
+	html+="</div>";
+	html+="</div>";
+	html+="</div>";
+	
   document.getElementById("wedding").innerHTML=html;
   
 });
 });
 
+  
+ database.ref('Birthday').on("value", function(snapshot){
+	
+	snapshot.forEach(function(childSnapshot){
+
+	var childUID = childSnapshot.key;
+	var childData = childSnapshot.val();
+	var html="";
+	html+="<div class='product'>";
+	html+="<a href='' class=' img-prod'><img src=\""+childData.Photo+"\"class='img-fluid'>";
+	html+="<div class='overlay'></div></a>";
+	html+="<div class='text py-3 pb-4 px-3 text-center'>";
+	html+="<div class='d-flex'>";
+	html+="<div class='pricing'>";
+	html+="<p class='price'><span class='price-sale text-primary'>"+childData.Price+" RWF</span></p>";
+	html+="</div>"; 
+	html+="</div>";
+	html+="<div class='bottom-area d-flex px-3'>";
+	html+="<div class='m-auto d-flex'>";
+	html+="<a href='#read_page' class='buy-now d-flex justify-content-center align-items-center mx-1'  onclick=\"read_page('"+childUID+"')\"><span><i class=''></i>Book</span></a>";
+	html+="</div>"; 
+	html+="</div>";
+	html+="</div>";
+	html+="</div>";
+  document.getElementById("Birthday").innerHTML=html;
+  
+});
+});
+
+  
+ database.ref('Special').on("value", function(snapshot){
+	
+	snapshot.forEach(function(childSnapshot){
+
+	var childUID = childSnapshot.key;
+	var childData = childSnapshot.val();
+	var html="";
+	html+="<div class='product'>";
+	html+="<a href='' class=' img-prod'><img src=\""+childData.Photo+"\"class='img-fluid'>";
+	html+="<div class='overlay'></div></a>";
+	html+="<div class='text py-3 pb-4 px-3 text-center'>";
+	html+="<div class='d-flex'>";
+	html+="<div class='pricing'>";
+	html+="<p class='price'><span class='price-sale text-primary'>"+childData.Price+" RWF</span></p>";
+	html+="</div>"; 
+	html+="</div>";
+	html+="<div class='bottom-area d-flex px-3'>";
+	html+="<div class='m-auto d-flex'>";
+	html+="<a href='#read_page' class='buy-now d-flex justify-content-center align-items-center mx-1'  onclick=\"read_page('"+childUID+"')\"><span><i class=''></i>Book</span></a>";
+	html+="</div>"; 
+	html+="</div>";
+	html+="</div>";
+	html+="</div>";
+  document.getElementById("Special").innerHTML=html;
+  
+});
+});
+
+  
+ database.ref('Graduation').on("value", function(snapshot){
+	
+	snapshot.forEach(function(childSnapshot){
+
+	var childUID = childSnapshot.key;
+	var childData = childSnapshot.val();
+	var html="";
+	html+="<div class='product'>";
+	html+="<a href='' class=' img-prod'><img src=\""+childData.Photo+"\"class='img-fluid'>";
+	html+="<div class='overlay'></div></a>";
+	html+="<div class='text py-3 pb-4 px-3 text-center'>";
+	html+="<div class='d-flex'>";
+	html+="<div class='pricing'>";
+	html+="<p class='price'><span class='price-sale text-primary'>"+childData.Price+" RWF</span></p>";
+	html+="</div>"; 
+	html+="</div>";
+	html+="<div class='bottom-area d-flex px-3'>";
+	html+="<div class='m-auto d-flex'>";
+	html+="<a href='#read_page' class='buy-now d-flex justify-content-center align-items-center mx-1'  onclick=\"read_page('"+childUID+"')\"><span><i class=''></i>Book</span></a>";
+	html+="</div>"; 
+	html+="</div>";
+	html+="</div>";
+	html+="</div>";
+  document.getElementById("Graduation").innerHTML=html;
+  
+});
+});
+
+// call item page
+function read_page(childUID) {
+
+// alert("childUID: "+ childUID);
+
+window.location.href="item.html?postuid="+childUID;
+
+
+}
 
 </script>
 
