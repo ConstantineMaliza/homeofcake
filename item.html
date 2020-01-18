@@ -174,7 +174,7 @@
 	 
 	</form><!-- END -->
 			  </div>
-			  <button type="submit" class="btn btn-primary">Order your cake</button>
+			  <button onclick="writeOrder()" class="btn btn-primary">Order your cake</button>
 			</div>
 		
 		  </div>
@@ -252,42 +252,56 @@
 <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
 
 <script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyAVrvfYpZI8Di8UrLLVWnBxRVt_kSKNoto",
-    authDomain: "home-of-cake.firebaseapp.com",
-    databaseURL: "https://home-of-cake.firebaseio.com",
-    projectId: "home-of-cake",
-    storageBucket: "home-of-cake.appspot.com",
-    messagingSenderId: "342936516946",
-    appId: "1:342936516946:web:45e435dc6f16d194b3228b",
-    measurementId: "G-3WLTFJYNTR"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const database = firebase.database();
-  firebase.analytics();
+	// Your web app's Firebase configuration
+	var firebaseConfig = {
+	  apiKey: "AIzaSyAVrvfYpZI8Di8UrLLVWnBxRVt_kSKNoto",
+	  authDomain: "home-of-cake.firebaseapp.com",
+	  databaseURL: "https://home-of-cake.firebaseio.com",
+	  projectId: "home-of-cake",
+	  storageBucket: "home-of-cake.appspot.com",
+	  messagingSenderId: "342936516946",
+	  appId: "1:342936516946:web:45e435dc6f16d194b3228b",
+	  measurementId: "G-3WLTFJYNTR"
+	};
+	// Initialize Firebase
+	firebase.initializeApp(firebaseConfig);
+	const auth = firebase.auth();
+	const database = firebase.database();
+	firebase.analytics();
+  
+  
+  function getUrlParameter(name) {
+	 name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+	 var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+	 var results = regex.exec(location.search);
+	 return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+  }
+  
+  var postUID = getUrlParameter("postuid");
+  
+  //post product for Wedding
+  var price = document.querySelector('#ItemKey td.price');
+  var itemTotal = document.querySelector('#ItemKey #total');
+  var itemQuantity = document.querySelector('#ItemKey #quantity');
+  var form = document.querySelector('#cake-info');
+  var img = document.querySelector('#ItemKey img');
+  var FullName = `${sessionStorage.getItem('FirstName')} ${sessionStorage.getItem('MiddleName')} ${sessionStorage.getItem('LastName')} `;
+  
+	database.ref("Wedding").child(postUID).on("value", function(snapshot){
+		var { Photo, Price } = snapshot.val();
+	  
+	  img.src = Photo;
+	  price.textContent = `${Price} Rwf`;
+	  itemTotal.textContent = `${Price} Rwf`;
+  
+	  form.firstname.value = sessionStorage.getItem('FirstName');
+	  form.middlename.value = sessionStorage.getItem('MiddleName');
+	  form.lastname.value = sessionStorage.getItem('LastName');
+	  
+  });
 
 
-function getUrlParameter(name) {
-   name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-   var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-   var results = regex.exec(location.search);
-   return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-}
-
-var postUID = getUrlParameter("postuid");
-
-//post product for Wedding
-var price = document.querySelector('#ItemKey td.price');
-var itemTotal = document.querySelector('#ItemKey #total');
-var itemQuantity = document.querySelector('#ItemKey #quantity');
-var form = document.querySelector('#cake-info');
-var img = document.querySelector('#ItemKey img');
-var FullName = `${sessionStorage.getItem('FirstName')} ${sessionStorage.getItem('MiddleName')} ${sessionStorage.getItem('LastName')} `;
-
-  database.ref("Wedding").child(postUID).on("value", function(snapshot){
+  database.ref("Special").child(postUID).on("value", function(snapshot){
 	  var { Photo, Price } = snapshot.val();
 	
 	img.src = Photo;
@@ -300,39 +314,110 @@ var FullName = `${sessionStorage.getItem('FirstName')} ${sessionStorage.getItem(
 	
 });
 
-itemQuantity.addEventListener('change', () => {
+  database.ref("Birthday").child(postUID).on("value", function(snapshot){
+	  var { Photo, Price } = snapshot.val();
+	
+	img.src = Photo;
+	price.textContent = `${Price} Rwf`;
+	itemTotal.textContent = `${Price} Rwf`;
 
-	var val = itemQuantity.value;
-	var total = val * parseInt(price.textContent);
-
-	itemTotal.textContent = `${total} Rwf`;
+	form.firstname.value = sessionStorage.getItem('FirstName');
+	form.middlename.value = sessionStorage.getItem('MiddleName');
+	form.lastname.value = sessionStorage.getItem('LastName');
+	
 });
+ 
+  database.ref("Graduation").child(postUID).on("value", function(snapshot){
+	  var { Photo, Price } = snapshot.val();
+	
+	img.src = Photo;
+	price.textContent = `${Price} Rwf`;
+	itemTotal.textContent = `${Price} Rwf`;
 
-var today = new Date();
-var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-var yyyy = today.getFullYear();
+	form.firstname.value = sessionStorage.getItem('FirstName');
+	form.middlename.value = sessionStorage.getItem('MiddleName');
+	form.lastname.value = sessionStorage.getItem('LastName');
+	
+});
+  
 
-form.date.min = `${yyyy}-${mm}-${dd}`;
-
-function writeOrder(e) {
-	e.preventDefault();
-
-	firebase.database().ref('Orders').set({
-		FullName,
-		Photo: img.src,
-		Quantity: itemQuantity.value,
-		Total: parseInt(itemTotal.textContent),
-		Date: form.date.value,
-		Time: form.time.value,
-		Description: form.info.value
-  }).then(() => alert('Order Submitted!!!'));
-
-}
-
-form.addEventListener('submit', writeOrder);
-
-</script>
+  
+  itemQuantity.addEventListener('change', () => {
+  
+	  var val = itemQuantity.value;
+	  var total = val * parseInt(price.textContent);
+  
+	  itemTotal.textContent = `${total} Rwf`;
+  });
+  
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+  
+  form.date.min = `${yyyy}-${mm}-${dd}`;
+  
+  // function writeNewOrder() {
+  //  var uid = sessionStorage.getItem('userUID');
+  //  // A post entry.
+  //  var orderData = {
+  //      FullName,
+  //      Photo: img.src,
+  //      Quantity: itemQuantity.value,
+  //      Total: parseInt(itemTotal.textContent),
+  //      Date: form.date.value,
+  //      Time: form.time.value,
+  //      Description: form.info.value
+  //  };
+  
+  //  // Get a key for a new Post.
+  //  var newOrderKey = firebase.database().ref().child('orders').push().key;
+  
+  //  // Write the new post's data simultaneously in the posts list and the user's post list.
+  //  var updates = {};
+  //  updates['/orders/' + newOrderKey] = orderData;
+  //  updates['/user-orders/' + uid + '/' + newOrderKey] = orderData;
+	  
+  //  firebase.database().ref().update(updates);
+  //  alert('Order Submitted');
+  
+  //  setTimeout(() => {
+  //      window.location.href = 'services&product.html';
+  //  }, 2000);
+  // }
+  
+  
+  function writeOrder() {
+  
+	  var newKey = firebase.database().ref().child('Orders').push().key; 
+	  
+	  var updates = {};
+	  updates['/orders/' + newKey] = {
+		  FullName,
+		  Photo: img.src,
+		  Quantity: itemQuantity.value,
+		  Total: parseInt(itemTotal.textContent),
+		  Date: form.date.value,
+		  Time: form.time.value,
+		  Description: form.info.value
+	};
+	  updates['/user-orders/' + sessionStorage.getItem('userUID') + '/' + newKey] = {
+		  FullName,
+		  Photo: img.src,
+		  Quantity: itemQuantity.value,
+		  Total: parseInt(itemTotal.textContent),
+		  Date: form.date.value,
+		  Time: form.time.value,
+		  Description: form.info.value
+	};
+  
+	  firebase.database().ref().update(updates);
+	  alert('Order Submitted!')
+  }
+  
+  form.addEventListener('submit', writeOrder);
+  
+  </script>
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/popper.min.js"></script>
