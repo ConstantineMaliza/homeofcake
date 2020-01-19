@@ -1,9 +1,58 @@
-document.getElementById("Admin").innerHTML = sessionStorage.getItem("Email");
 
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyAVrvfYpZI8Di8UrLLVWnBxRVt_kSKNoto",
+    authDomain: "home-of-cake.firebaseapp.com",
+    databaseURL: "https://home-of-cake.firebaseio.com",
+    projectId: "home-of-cake",
+    storageBucket: "home-of-cake.appspot.com",
+    messagingSenderId: "342936516946",
+    appId: "1:342936516946:web:45e435dc6f16d194b3228b",
+    measurementId: "G-3WLTFJYNTR"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const database = firebase.database();
+  firebase.analytics();
+
+document.querySelector("#Admin").innerHTML = sessionStorage.getItem("Email");
+
+if(window.location.href.includes('orders.html')){
+
+//list of Orders
+
+main()
+async function main() {
+
+    const snap = await database.ref('orders')
+    .once('value');
+
+    let htmls = '';
+    await snap.forEach(async (val, i) => {
+        const childData = await val.val();
+        if(childData){
+            htmls += `<tr>
+                <td>${childData.FullName}</td>
+                <td class="text-center"><img src="${childData.Photo}" alt="" class="img-fluid img-thumbnail"style="max-width:100%;max-height:200px; height:auto; display:block;"</td>
+                <td>${childData.Date}</td>
+                <td>${childData.Time}</td>
+                <td>${childData.Total}</td>
+                <td>${childData.Description}</td>
+                <td>${childData.Quantity}</td>
+            </tr>`;
+        }
+    });
+    setTimeout(() => {
+        document.querySelector("#orders-list-output").innerHTML=htmls ;
+    },4000)
+
+    }
+}
 
 //logout
 const logout=document.querySelector("#logout");
-      logout.addEventListener('click',(e)=>{
+logout.addEventListener('click',(e)=>{
         e.preventDefault();
 
         auth.signOut().then(()=>{
@@ -12,67 +61,72 @@ const logout=document.querySelector("#logout");
         });
     });
 
-//retrieve Trainers list
-
-database.ref('Trainers').on('value',function(snapshot){
-    var htmlregisterAll = "";
-    var childCounts = snapshot.numChildren();
-    var t = 0;
-    var i = childCounts + 1;
-   
-    snapshot.forEach(function(childSnapshot){
-        if(t==0){
-            htmlregisterAll = "";  
-        }
-        t++;
-        i--;
-        var childUID = childSnapshot.key;
-        var childData = childSnapshot.val();
-        var htmlRegister="";
-        htmlRegister+="<tr>";
-        htmlRegister+="<td>"+i+"</td>";
-        htmlRegister+="<td>"+childData.FirstName+"</td>";
-        htmlRegister+="<td>"+childData.MiddleName+"</td>";
-        htmlRegister+="<td>"+childData.LastName+"</td>";
-        htmlRegister+="<td>"+childData.PhoneNumber+"</td>";
-        htmlRegister+="<td>"+childData.Category+"</td>";
-        htmlRegister+="<td><a href='#Trainerdelete'class='btn btn-danger btn-circle'><i class='fas fa-trash'onclick=\"Trainerdelete("+"'linedeleteregister"+childUID + "', '"+childUID+"')\"" +" ></i></a>";
-        htmlRegister+="</td>";
-        htmlRegister+="</tr>";
-        htmlregisterAll = htmlRegister + htmlregisterAll;
-        if(t == childCounts) {
-            document.getElementById("trainers").innerHTML=htmlregisterAll ;
-        }
-
+if(window.location.href.includes('trainers.html')){
+    //retrieve Trainers list
+    
+    database.ref('Trainers').on('value',function(snapshot){
+        var htmlregisterAll = "";
+        var childCounts = snapshot.numChildren();
+        var t = 0;
+        var i = childCounts + 1;
        
+        snapshot.forEach(function(childSnapshot){
+            if(t==0){
+                htmlregisterAll = "";  
+            }
+            t++;
+            i--;
+            var childUID = childSnapshot.key;
+            var childData = childSnapshot.val();
+            var htmlRegister="";
+            htmlRegister+="<tr>";
+            htmlRegister+="<td>"+i+"</td>";
+            htmlRegister+="<td>"+childData.FirstName+"</td>";
+            htmlRegister+="<td>"+childData.MiddleName+"</td>";
+            htmlRegister+="<td>"+childData.LastName+"</td>";
+            htmlRegister+="<td>"+childData.PhoneNumber+"</td>";
+            htmlRegister+="<td>"+childData.Category+"</td>";
+            htmlRegister+="<td><a href='#Trainerdelete'class='btn btn-danger btn-circle'><i class='fas fa-trash'onclick=\"Trainerdelete("+"'linedeleteregister"+childUID + "', '"+childUID+"')\"" +" ></i></a>";
+            htmlRegister+="</td>";
+            htmlRegister+="</tr>";
+            htmlregisterAll = htmlRegister + htmlregisterAll;
+            if(t == childCounts) {
+                document.querySelector("#trainers").innerHTML=htmlregisterAll ;
+            }
+    
+           
+        });
     });
-});
-
-function Trainerdelete(childUID, user_id) {
-                              
-    database.ref('Trainers').child(user_id).remove().then(resut => {
+    
+    function Trainerdelete(childUID, user_id) {
+                                  
+        database.ref('Trainers').child(user_id).remove().then(resut => {
+         
+          alert("user sucessfully deleted");
+    
+          var element = document.getElementById(childUID);
      
-      alert("user sucessfully deleted");
+          document.querySelector("#trainers").removeChild(element);
+    
+        });
+    
+      }
+}
 
-      var element = document.getElementById(childUID);
- 
-      document.getElementById("trainers").removeChild(element);
+if(window.location.href.includes('clients.html')){
 
-    });
-
-  }
 
   //list of clients
 
   database.ref('Clients').on('value',function(snapshot){
-    var htmlClientsAll = "";
+    var htmlOrdersAll = "";
     var childCounts = snapshot.numChildren();
     var t = 0;
     var i = childCounts + 1;
    
     snapshot.forEach(function(childSnapshot){
         if(t==0){
-            htmlClientsAll = "";  
+            htmlOrdersAll = "";  
         }
         t++;
         i--;
@@ -89,9 +143,46 @@ function Trainerdelete(childUID, user_id) {
             htmlClients+="<td><a href='#userdelete'class='btn btn-danger btn-circle'><i class='fas fa-trash'onclick=\"userdelete("+"'linedeleteregister"+childUID + "', '"+childUID+"')\"" +" ></i></a>";
             htmlClients+="</td>";
             htmlClients+="</tr>";
+            htmlOrdersAll = htmlClients + htmlOrdersAll;
+        if(t == childCounts) {
+            document.querySelector("#clients").innerHTML=htmlOrdersAll ;
+        }
+
+       
+    });
+});
+
+  //list of Order
+
+  database.ref('orders').on('value',function(snapshot){
+    var htmlClientsAll = "";
+    var childCounts = snapshot.numChildren();
+    var t = 0;
+    var i = childCounts + 1;
+   
+    snapshot.forEach(function(childSnapshot){
+        if(t==0){
+            htmlClientsAll = "";  
+        }
+        t++;
+        i--;
+        var childUID = childSnapshot.key;
+        var childData = childSnapshot.val();
+        var htmlClients="";
+            htmlClients+="<tr>";
+            htmlClients+="<td>"+i+"</td>";
+            htmlClients+="<td>"+childData.FullName+"</td>";
+            htmlClients+="<td class='text-center'><img src=\""+childData.Photo+"\"  class='img-fluid img-thumbnail'style='max-width:100%;max-height:200px; height:auto; display:block;'</td>";          
+            htmlClients+="<td>"+childData.Date+"-"+childData.Time+"</td>";
+            htmlClients+="<td>"+childData.Quantity+"</td>";
+            htmlClients+="<td>"+childData.Total+"</td>";
+            htmlClients+="<td>"+childData.Description+"</td>";
+            htmlClients+="<td><a href='#userdelete'class='btn btn-danger btn-circle'><i class='fas fa-trash'onclick=\"userdelete("+"'linedeleteregister"+childUID + "', '"+childUID+"')\"" +" ></i></a>";
+            htmlClients+="</td>";
+            htmlClients+="</tr>";
             htmlClientsAll = htmlClients + htmlClientsAll;
         if(t == childCounts) {
-            document.getElementById("clients").innerHTML=htmlClientsAll ;
+            document.getElementById("orders").innerHTML=htmlClientsAll ;
         }
 
        
@@ -105,58 +196,95 @@ function userdelete(childUID, user_id) {
 
       var element = document.getElementById(childUID);
  
-      document.getElementById("clients").removeChild(element);
+      document.querySelector("#clients").removeChild(element);
 
     });
 
   }
 
+}
+
   //checkbox
   var ischecked = "";
  function detect_wedding() {
 
-    var detect_wedding = document.getElementById("wedding");
+    var detect_wedding = document.querySelector("#wedding");
 
     if(detect_wedding.checked == true) {
         ischecked = "Wedding";
-     document.getElementById("birthday").checked = false;
-     document.getElementById("graduation").checked = false;
-     document.getElementById("special").checked = false;
+     document.querySelector("#birthday").checked = false;
+     document.querySelector("#graduation").checked = false;
+     document.querySelector("#special").checked = false;
     }
     }
     
     function detect_birthday() {
     
-    var detect_birthday = document.getElementById("birthday");
+    var detect_birthday = document.querySelector("#birthday");
     
     if(detect_birthday.checked == true) {
         ischecked = "Birthday";
-        document.getElementById("wedding").checked = false;
-        document.getElementById("graduation").checked = false;
-        document.getElementById("special").checked = false;
+        document.querySelector("#wedding").checked = false;
+        document.querySelector("#graduation").checked = false;
+        document.querySelector("#special").checked = false;
     }
     }
     function detect_graduation() {
     
-    var detect_graduation = document.getElementById("graduation");
+    var detect_graduation = document.querySelector("#graduation");
     
     if(detect_graduation.checked == true) {
         ischecked = "Graduation";
-        document.getElementById("wedding").checked = false;
-        document.getElementById("birthday").checked = false;
-        document.getElementById("special").checked = false;
+        document.querySelector("#wedding").checked = false;
+        document.querySelector("#birthday").checked = false;
+        document.querySelector("#special").checked = false;
     }
     }
     function detect_special() {
     
-    var detect_special = document.getElementById("special");
+    var detect_special = document.querySelector("#special");
     
     if(detect_special.checked == true) {
         ischecked = "Special";
-        document.getElementById("wedding").checked = false;
-        document.getElementById("birthday").checked = false;
-        document.getElementById("graduation").checked = false;
+        document.querySelector("#wedding").checked = false;
+        document.querySelector("#birthday").checked = false;
+        document.querySelector("#graduation").checked = false;
     }
     }
     var uid=database.ref('Photo').push().key;
     
+//count Comment
+database.ref('Comments').on('value', function(snapshot) {
+
+
+    var childCounts = snapshot.numChildren();
+    
+    var i = 0;
+
+    var Comments = 0;
+   
+    snapshot.forEach(function(childSnapshot) {
+
+      i++;
+      Comments++;  
+      if(i == childCounts) {
+        document.getElementById("comments").innerHTML=Comments;
+      }
+
+      var childUid = snapshot.val();
+      var childData = snapshot.val();
+
+      html=`
+      <div class="dropdown-list-image mr-3">
+        <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
+        <div class="status-indicator bg-success"></div>
+      </div>
+      <div class="font-weight-bold">
+        <div class="text-truncate">${childData.message}</div>
+        <div class="small text-gray-500">${childData.date}</div>
+      </div>  
+      `;
+      document.getElementById("commentmessage").innerHTML=html;
+
+    });
+});

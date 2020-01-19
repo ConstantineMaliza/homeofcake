@@ -180,7 +180,6 @@ Register.addEventListener('submit',(e) =>{
                     var dataProfile = snapshot.val();          
                     var category = dataProfile.Category;
           
-                    alert('Logged in as: '+ category);
                     sessionStorage.setItem("Email", dataProfile.Email);
                     sessionStorage.setItem("FirstName", dataProfile.FirstName);
                     sessionStorage.setItem("MiddleName", dataProfile.MiddleName);

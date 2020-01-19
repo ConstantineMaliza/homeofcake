@@ -59,22 +59,11 @@
     
             <div class="collapse navbar-collapse" id="ftco-nav">
               <ul class="navbar-nav ml-auto">
-                <li class="nav-item "><a href="index.html" class="nav-link">Home</a></li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
-                  <div class="dropdown-menu" aria-labelledby="dropdown04">
-                    <a class="dropdown-item" href="shop.html">Shop</a>
-                    <a class="dropdown-item" href="wishlist.html">Wishlist</a>
-                    <a class="dropdown-item" href="product-single.html">Single Product</a>
-                    <a class="dropdown-item" href="cart.html">Cart</a>
-                    <a class="dropdown-item" href="checkout.html">Checkout</a>
-                  </div>
-                </li>
+                <li class="nav-item "><a href="index.html" class="nav-link">Home</a></li>              
                 <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="blog.html" class="nav-link">Product  &amp; Services</a></li>
+                <li class="nav-item"><a href="services&product.html" class="nav-link">Product  &amp; Services</a></li>
                 <li class="nav-item active"><a href="contact.html" class="nav-link">Contact</a></li>
-                <li class="nav-item"><a href="Register.html" class="nav-link">Register</a></li>
-                <!-- <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li> -->
+                <li class="nav-item"><a href="Register.html" class="nav-link">Login</a></li>
     
               </ul>
             </div>
@@ -120,19 +109,24 @@
         </div>
         <div class="row block-9">
           <div class="col-md-6 order-md-last d-flex">
-            <form action="#" class="bg-white p-5 contact-form">
+            <form class="bg-white p-5 contact-form" id="CommentForm">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Your Name">
+                <label for="">Name</label>
+                <input type="text" class="form-control"id="name" placeholder="jeannete Dusenge">
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Your Email">
+                <label for=""> Email</label>
+                <input type="text" class="form-control"id="email" placeholder="coco@gmail.com">
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Subject">
+                <label for=""> Subject</label>
+                <input type="text" class="form-control"id="title" placeholder="Suggestion">
               </div>
               <div class="form-group">
-                <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+                <label for="">Message</label>
+                <input type="text" class="form-control"id="message" placeholder="">
               </div>
+             
               <div class="form-group">
                 <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
               </div>
@@ -147,7 +141,7 @@
       </div>
     </section>
 
-    <footer class="ftco-footer ftco-section ">
+    <footer class="ftco-footer ftco-section " style="padding-bottom: 0%;">
         <div class="container">
           <div class="row">
             <div class="mouse">
@@ -204,8 +198,70 @@
 
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-storage.js"></script>
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+  
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyAVrvfYpZI8Di8UrLLVWnBxRVt_kSKNoto",
+      authDomain: "home-of-cake.firebaseapp.com",
+      databaseURL: "https://home-of-cake.firebaseio.com",
+      projectId: "home-of-cake",
+      storageBucket: "home-of-cake.appspot.com",
+      messagingSenderId: "342936516946",
+      appId: "1:342936516946:web:45e435dc6f16d194b3228b",
+      measurementId: "G-3WLTFJYNTR"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const database = firebase.database();
+    firebase.analytics();    
 
+    const commentForm = document.querySelector('#CommentForm');
+     commentForm.addEventListener('submit', (e) => {
+         e.preventDefault();
+         const uid = database.ref('Comments').push().key;
+         const date = new Date().getTime();
 
+         const name = commentForm['name'].value;
+         const email = commentForm['email'].value;
+         const title = commentForm['title'].value;
+         const message = commentForm['message'].value;  
+        
+
+        writeCommentData(uid, name, email,title, message, date);
+
+        function writeCommentData(uid, name, email,title, message, date) {
+          database.ref('Comments').child(uid).set({
+            uid: uid,
+            name: name,
+            email: email,
+            title: title,
+            message: message,
+            date: date
+            
+        }).then(resut => { 
+
+          alert('Comment succesffully sent');
+
+          const name = commentForm['name'].value=" ";
+          const email = commentForm['email'].value=" ";
+          const title = commentForm['title'].value=" ";
+          const message = commentForm['message'].value=" ";
+
+      });
+
+        }
+
+     });
+  </script>
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/popper.min.js"></script>
