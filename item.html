@@ -346,38 +346,8 @@
   
   form.date.min = `${yyyy}-${mm}-${dd}`;
   
-  // function writeNewOrder() {
-  //  var uid = sessionStorage.getItem('userUID');
-  //  // A post entry.
-  //  var orderData = {
-  //      FullName,
-  //      Photo: img.src,
-  //      Quantity: itemQuantity.value,
-  //      Total: parseInt(itemTotal.textContent),
-  //      Date: form.date.value,
-  //      Time: form.time.value,
-  //      Description: form.info.value
-  //  };
-  
-  //  // Get a key for a new Post.
-  //  var newOrderKey = firebase.database().ref().child('orders').push().key;
-  
-  //  // Write the new post's data simultaneously in the posts list and the user's post list.
-  //  var updates = {};
-  //  updates['/orders/' + newOrderKey] = orderData;
-  //  updates['/user-orders/' + uid + '/' + newOrderKey] = orderData;
-	  
-  //  firebase.database().ref().update(updates);
-  //  alert('Order Submitted');
-  
-  //  setTimeout(() => {
-  //      window.location.href = 'services&product.html';
-  //  }, 2000);
-  // }
-  
-  
   function writeOrder() {
-  
+
 	  var newKey = firebase.database().ref().child('Orders').push().key; 
 	  
 	  var updates = {};
@@ -402,7 +372,11 @@
   
 	  firebase.database().ref().update(updates);
 	  alert('Order Submitted!');
-	  window.location.href="index.html";
+
+	  setTimeout(() => {
+		  window.location.href = 'services&product.html';
+	  }, 2000);
+
   }
   
   form.addEventListener('submit', writeOrder);
