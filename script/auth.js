@@ -179,6 +179,7 @@ Register.addEventListener('submit',(e) =>{
                     
                     var dataProfile = snapshot.val();          
                     var category = dataProfile.Category;
+                    
           
                     sessionStorage.setItem("Email", dataProfile.Email);
                     sessionStorage.setItem("FirstName", dataProfile.FirstName);
@@ -202,6 +203,7 @@ Register.addEventListener('submit',(e) =>{
                     var dataProfile = snapshot.val();          
                     var category = dataProfile.Category;
           
+                   
                     sessionStorage.setItem("Email", dataProfile.Email);
                     sessionStorage.setItem("FirstName", dataProfile.FirstName);
                     sessionStorage.setItem("MiddleName", dataProfile.MiddleName);
