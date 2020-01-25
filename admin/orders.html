@@ -135,61 +135,12 @@
               </div>
             </li>
 
-            <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
-              </a>
-              <!-- Dropdown - Alerts -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Alerts Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                      <i class="fas fa-file-alt text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                      <i class="fas fa-donate text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    $290.29 has been deposited into your account!
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    Spending Alert: We've noticed unusually high spending for your account.
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-              </div>
-            </li>
-
             <!-- Nav Item - Messages -->
             <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-envelope fa-fw"></i>
                 <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter">7</span>
+                <span class="badge badge-danger badge-counter" id="comments">7</span>
               </a>
               <!-- Dropdown - Messages -->
               <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
@@ -285,39 +236,18 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
+                      <th>N0</th>
                       <th>Name</th>
                       <th>Product</th>
                       <th>Delivered date</th>
-                      <th>Time</th>
+                      <th>Quantity</th>
                       <th>Price(FRW)</th>
                       <th>Other information</th>
                       <th>Control</th>
                     </tr>
                   </thead>
-                  <tbody id="orders-list-output">
-                    <!-- <tr>
-                      <td>Maliza</td>
-                      <td class="text-center"><img src="../images/1.jpg" alt="" class="img-fluid img-thumbnail"style="max-width:100%;max-height:200px; height:auto; display:block;"</td>
-                      <td>coco</td>
-                      <td>61</td>
-                      <td>40000</td>
-                      <td>Gikondo</td>
-                      <td> <a href="#" class="btn btn-danger btn-circle">
-                        <i class="fas fa-trash"></i>
-                      </a></td>
-                    </tr>
-                    <tr>
-                      <td>Maliza</td>
-                      <td class="text-center"><img src="../images/2.jpg" alt="" class="img-fluid img-thumbnail"style="max-width:100%;max-height:200px; height:auto; display:block;"</td>
-                      <td>coco</td>
-                      <td>61</td>
-                      <td>50000</td>
-                      <td>Gikondo</td>
-                      <td> <a href="#" class="btn btn-danger btn-circle">
-                        <i class="fas fa-trash"></i>
-                      </a></td>
-                    </tr> -->
-                  </tbody>
+                  <tbody id="orders">
+                 </tbody>
                 </table>
               </div>
             </div>
@@ -333,7 +263,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
+            <span>Copyright &copy; Homeofcakes-rwanda.com</span>
           </div>
         </div>
       </footer>
@@ -406,11 +336,34 @@
   </div>
 
    
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-storage.js"></script>
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-storage.js"></script>
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+  
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyAVrvfYpZI8Di8UrLLVWnBxRVt_kSKNoto",
+      authDomain: "home-of-cake.firebaseapp.com",
+      databaseURL: "https://home-of-cake.firebaseio.com",
+      projectId: "home-of-cake",
+      storageBucket: "home-of-cake.appspot.com",
+      messagingSenderId: "342936516946",
+      appId: "1:342936516946:web:45e435dc6f16d194b3228b",
+      measurementId: "G-3WLTFJYNTR"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const database = firebase.database();
+    firebase.analytics();    
+  </script>
+  <script src="js/admin.js"></script>
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>

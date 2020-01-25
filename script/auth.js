@@ -191,12 +191,50 @@ Register.addEventListener('submit',(e) =>{
                     // sendSMS(userPhone, "GoWithMe\n\nYou have logged in your account of GoWithMe at: "+ new Date().toString() +"\n\nThank you.");
           
                     if(category=="Booking"){
+                      alert("welcome");
                       window.location.href="services&product.html";
-                    }else if(category=="Training"){
-                      window.location.href="index.html";
-                    }else if(category=="Admin"){
+                    }
+          
+                });          
+                  database.ref("Admin/"+user_id).once('value', function(snapshot) {
+
+                    
+                    var dataProfile = snapshot.val();          
+                    var category = dataProfile.Category;
+          
+                    sessionStorage.setItem("Email", dataProfile.Email);
+                    sessionStorage.setItem("FirstName", dataProfile.FirstName);
+                    sessionStorage.setItem("MiddleName", dataProfile.MiddleName);
+                    sessionStorage.setItem("LastName", dataProfile.LastName);
+                   
+          
+                    // var userPhone = dataProfile.phone != null ? dataProfile.phone : "";
+          
+                    // sendSMS(userPhone, "GoWithMe\n\nYou have logged in your account of GoWithMe at: "+ new Date().toString() +"\n\nThank you.");
+          
+                    alert("welcome");
                       window.location.href="admin/index.html";
-                    }else {
+                   
+          
+                });          
+                  database.ref("Trainers/"+ user_id).once('value', function(snapshot) {
+
+                    
+                    var dataProfile = snapshot.val();          
+                    var category = dataProfile.Category;
+          
+                    sessionStorage.setItem("Email", dataProfile.Email);
+                    sessionStorage.setItem("FirstName", dataProfile.FirstName);
+                    sessionStorage.setItem("MiddleName", dataProfile.MiddleName);
+                    sessionStorage.setItem("LastName", dataProfile.LastName);
+                    sessionStorage.setItem("userAccount", category);
+          
+                    // var userPhone = dataProfile.phone != null ? dataProfile.phone : "";
+          
+                    // sendSMS(userPhone, "GoWithMe\n\nYou have logged in your account of GoWithMe at: "+ new Date().toString() +"\n\nThank you.");
+          
+                    if(category=="Trainer"){
+                      alert("welcome");
                       window.location.href="index.html";
                     }
           
