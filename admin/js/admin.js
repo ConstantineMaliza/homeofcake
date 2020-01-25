@@ -1,54 +1,5 @@
 
-// Your web app's Firebase configuration
-var firebaseConfig = {
-    apiKey: "AIzaSyAVrvfYpZI8Di8UrLLVWnBxRVt_kSKNoto",
-    authDomain: "home-of-cake.firebaseapp.com",
-    databaseURL: "https://home-of-cake.firebaseio.com",
-    projectId: "home-of-cake",
-    storageBucket: "home-of-cake.appspot.com",
-    messagingSenderId: "342936516946",
-    appId: "1:342936516946:web:45e435dc6f16d194b3228b",
-    measurementId: "G-3WLTFJYNTR"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const database = firebase.database();
-  firebase.analytics();
-
-document.querySelector("#Admin").innerHTML = sessionStorage.getItem("Email");
-
-if(window.location.href.includes('orders.html')){
-
-//list of Orders
-
-main()
-async function main() {
-
-    const snap = await database.ref('orders')
-    .once('value');
-
-    let htmls = '';
-    await snap.forEach(async (val, i) => {
-        const childData = await val.val();
-        if(childData){
-            htmls += `<tr>
-                <td>${childData.FullName}</td>
-                <td class="text-center"><img src="${childData.Photo}" alt="" class="img-fluid img-thumbnail"style="max-width:100%;max-height:200px; height:auto; display:block;"</td>
-                <td>${childData.Date}</td>
-                <td>${childData.Time}</td>
-                <td>${childData.Total}</td>
-                <td>${childData.Description}</td>
-                <td>${childData.Quantity}</td>
-            </tr>`;
-        }
-    });
-    setTimeout(() => {
-        document.querySelector("#orders-list-output").innerHTML=htmls ;
-    },4000)
-
-    }
-}
+document.querySelector("#Admin").innerHTML = sessionStorage.getItem("FirstName");
 
 //logout
 const logout=document.querySelector("#logout");
@@ -61,10 +12,137 @@ logout.addEventListener('click',(e)=>{
         });
     });
 
-if(window.location.href.includes('trainers.html')){
+    //count Trainers
+    database.ref('Trainers').on('value',function(snapshot){
+
+        var childCounts = snapshot.numChildren();
+    
+        var i = 0;
+    
+        var Trainers = 0;
+       
+        snapshot.forEach(function(childSnapshot) {
+    
+          i++;
+          Trainers++;  
+          if(i == childCounts) {
+            document.getElementById("Trainers").innerHTML=Trainers;
+          }
+        });
+    });
+    //count Clients
+    database.ref('Clients').on('value',function(snapshot){
+
+        var childCounts = snapshot.numChildren();
+    
+        var i = 0;
+    
+        var Clients = 0;
+       
+        snapshot.forEach(function(childSnapshot) {
+    
+          i++;
+          Clients++;  
+          if(i == childCounts) {
+            document.getElementById("Clients").innerHTML=Clients;
+          }
+        });
+    });
+    //count wedding
+    database.ref('Wedding').on('value',function(snapshot){
+
+        var childCounts = snapshot.numChildren();
+    
+        var i = 0;
+    
+        var Wedding = 0;
+       
+        snapshot.forEach(function(childSnapshot) {
+    
+          i++;
+          Wedding++;  
+          if(i == childCounts) {
+            document.getElementById("wedding").innerHTML=Wedding;
+          }
+        });
+    });
+    //count birthday
+    database.ref('Birthday').on('value',function(snapshot){
+
+        var childCounts = snapshot.numChildren();
+    
+        var i = 0;
+    
+        var Birthday = 0;
+       
+        snapshot.forEach(function(childSnapshot) {
+    
+          i++;
+          Birthday++;  
+          if(i == childCounts) {
+            document.getElementById("birthday").innerHTML=Birthday;
+          }
+        });
+    });
+    //count graduation
+    database.ref('Graduation').on('value',function(snapshot){
+
+        var childCounts = snapshot.numChildren();
+    
+        var i = 0;
+    
+        var Graduation = 0;
+       
+        snapshot.forEach(function(childSnapshot) {
+    
+          i++;
+          Graduation++;  
+          if(i == childCounts) {
+            document.getElementById("graduation").innerHTML=Graduation;
+          }
+        });
+    });
+    //count Special
+    database.ref('Special').on('value',function(snapshot){
+
+        var childCounts = snapshot.numChildren();
+    
+        var i = 0;
+    
+        var Special = 0;
+       
+        snapshot.forEach(function(childSnapshot) {
+    
+          i++;
+          Special++;  
+          if(i == childCounts) {
+            document.getElementById("special").innerHTML=Special;
+          }
+        });
+    });
+    //count orders
+    database.ref('orders').on('value',function(snapshot){
+
+        var childCounts = snapshot.numChildren();
+    
+        var i = 0;
+    
+        var orders = 0;
+       
+        snapshot.forEach(function(childSnapshot) {
+    
+          i++;
+          orders++;  
+          if(i == childCounts) {
+            document.getElementById("order").innerHTML=orders;
+          }
+        });
+    });
     //retrieve Trainers list
     
     database.ref('Trainers').on('value',function(snapshot){
+
+        
         var htmlregisterAll = "";
         var childCounts = snapshot.numChildren();
         var t = 0;
@@ -98,6 +176,7 @@ if(window.location.href.includes('trainers.html')){
         });
     });
     
+    
     function Trainerdelete(childUID, user_id) {
                                   
         database.ref('Trainers').child(user_id).remove().then(resut => {
@@ -111,11 +190,6 @@ if(window.location.href.includes('trainers.html')){
         });
     
       }
-}
-
-if(window.location.href.includes('clients.html')){
-
-
   //list of clients
 
   database.ref('Clients').on('value',function(snapshot){
@@ -177,7 +251,7 @@ if(window.location.href.includes('clients.html')){
             htmlClients+="<td>"+childData.Quantity+"</td>";
             htmlClients+="<td>"+childData.Total+"</td>";
             htmlClients+="<td>"+childData.Description+"</td>";
-            htmlClients+="<td><a href='#userdelete'class='btn btn-danger btn-circle'><i class='fas fa-trash'onclick=\"userdelete("+"'linedeleteregister"+childUID + "', '"+childUID+"')\"" +" ></i></a>";
+            htmlClients+="<td><a href='#userdelete'class='btn btn-danger btn-circle'><i class='fas fa-trash'onclick=\"orderdelete("+"'linedeleteregister"+childUID + "', '"+childUID+"')\"" +" ></i></a>";
             htmlClients+="</td>";
             htmlClients+="</tr>";
             htmlClientsAll = htmlClients + htmlClientsAll;
@@ -201,8 +275,21 @@ function userdelete(childUID, user_id) {
     });
 
   }
+function orderdelete(childUID, user_id) {
+                              
+    database.ref('orders').child(user_id).remove().then(resut => {
+     
+      alert("user sucessfully deleted");
 
-}
+      var element = document.getElementById(childUID);
+ 
+      document.querySelector("#orders").removeChild(element);
+
+    });
+
+  }
+
+
 
   //checkbox
   var ischecked = "";
