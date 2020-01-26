@@ -222,13 +222,50 @@ logout.addEventListener('click',(e)=>{
             document.querySelector("#clients").innerHTML=htmlOrdersAll ;
         }
 
+        
+          //list of Order
+        
+          database.ref('orders').on('value',function(snapshot){
+            var htmlClientsAll = "";
+            var childCounts = snapshot.numChildren();
+            var t = 0;
+            var i = childCounts + 1;
+           
+            snapshot.forEach(function(childSnapshot){
+                if(t==0){
+                    htmlClientsAll = "";  
+                }
+                t++;
+                i--;
+                var childUID = childSnapshot.key;
+                var childData = childSnapshot.val();
+                var htmlClients="";
+                    htmlClients+="<tr>";
+                    htmlClients+="<td>"+i+"</td>";
+                    htmlClients+="<td>"+childData.FullName+"</td>";
+                    htmlClients+="<td class='text-center'><img src=\""+childData.Photo+"\"  class='img-fluid img-thumbnail'style='max-width:100%;max-height:200px; height:auto; display:block;'</td>";          
+                    htmlClients+="<td>"+childData.Date+"-"+childData.Time+"</td>";
+                    htmlClients+="<td>"+childData.Quantity+"</td>";
+                    htmlClients+="<td>"+childData.Total+"</td>";
+                    htmlClients+="<td>"+childData.Description+"</td>";
+                    htmlClients+="<td><a href='#userdelete'class='btn btn-danger btn-circle'><i class='fas fa-trash'onclick=\"orderdelete("+"'linedeleteregister"+childUID + "', '"+childUID+"')\"" +" ></i></a>";
+                    htmlClients+="</td>";
+                    htmlClients+="</tr>";
+                    htmlClientsAll = htmlClients + htmlClientsAll;
+                if(t == childCounts) {
+                    document.getElementById("orders").innerHTML=htmlClientsAll ;
+                }
+        
+               
+            });
+        });
        
     });
 });
 
-  //list of Order
+  //list of wedding
 
-  database.ref('orders').on('value',function(snapshot){
+  database.ref('Wedding').on('value',function(snapshot){
     var htmlClientsAll = "";
     var childCounts = snapshot.numChildren();
     var t = 0;
@@ -245,23 +282,170 @@ logout.addEventListener('click',(e)=>{
         var htmlClients="";
             htmlClients+="<tr>";
             htmlClients+="<td>"+i+"</td>";
-            htmlClients+="<td>"+childData.FullName+"</td>";
             htmlClients+="<td class='text-center'><img src=\""+childData.Photo+"\"  class='img-fluid img-thumbnail'style='max-width:100%;max-height:200px; height:auto; display:block;'</td>";          
-            htmlClients+="<td>"+childData.Date+"-"+childData.Time+"</td>";
-            htmlClients+="<td>"+childData.Quantity+"</td>";
-            htmlClients+="<td>"+childData.Total+"</td>";
-            htmlClients+="<td>"+childData.Description+"</td>";
-            htmlClients+="<td><a href='#userdelete'class='btn btn-danger btn-circle'><i class='fas fa-trash'onclick=\"orderdelete("+"'linedeleteregister"+childUID + "', '"+childUID+"')\"" +" ></i></a>";
+            htmlClients+="<td>"+childData.Price+"</td>";
+            htmlClients+="<td><a href='#userdelete'class='btn btn-danger btn-circle'><i class='fas fa-trash'onclick=\"weddingdelete("+"'linedeleteregister"+childUID + "', '"+childUID+"')\"" +" ></i></a>";
             htmlClients+="</td>";
             htmlClients+="</tr>";
             htmlClientsAll = htmlClients + htmlClientsAll;
         if(t == childCounts) {
-            document.getElementById("orders").innerHTML=htmlClientsAll ;
+            document.getElementById("weddings").innerHTML=htmlClientsAll ;
         }
 
        
     });
 });
+//list birthday
+
+
+database.ref('Birthday').on('value',function(snapshot){
+  var htmlClientsAll = "";
+  var childCounts = snapshot.numChildren();
+  var t = 0;
+  var i = childCounts + 1;
+ 
+  snapshot.forEach(function(childSnapshot){
+      if(t==0){
+          htmlClientsAll = "";  
+      }
+      t++;
+      i--;
+      var childUID = childSnapshot.key;
+      var childData = childSnapshot.val();
+      var htmlClients="";
+          htmlClients+="<tr>";
+          htmlClients+="<td>"+i+"</td>";
+          htmlClients+="<td class='text-center'><img src=\""+childData.Photo+"\"  class='img-fluid img-thumbnail'style='max-width:100%;max-height:200px; height:auto; display:block;'</td>";          
+          htmlClients+="<td>"+childData.Price+"</td>";
+          htmlClients+="<td><a href='#userdelete'class='btn btn-danger btn-circle'><i class='fas fa-trash'onclick=\"birthdaydelete("+"'linedeleteregister"+childUID + "', '"+childUID+"')\"" +" ></i></a>";
+          htmlClients+="</td>";
+          htmlClients+="</tr>";
+          htmlClientsAll = htmlClients + htmlClientsAll;
+      if(t == childCounts) {
+          document.getElementById("birthdays").innerHTML=htmlClientsAll ;
+      }
+
+     
+  });
+});
+
+// list Ceremony
+
+database.ref('Graduation').on('value',function(snapshot){
+  var htmlClientsAll = "";
+  var childCounts = snapshot.numChildren();
+  var t = 0;
+  var i = childCounts + 1;
+ 
+  snapshot.forEach(function(childSnapshot){
+      if(t==0){
+          htmlClientsAll = "";  
+      }
+      t++;
+      i--;
+      var childUID = childSnapshot.key;
+      var childData = childSnapshot.val();
+      var htmlClients="";
+          htmlClients+="<tr>";
+          htmlClients+="<td>"+i+"</td>";
+          htmlClients+="<td class='text-center'><img src=\""+childData.Photo+"\"  class='img-fluid img-thumbnail'style='max-width:100%;max-height:200px; height:auto; display:block;'</td>";          
+          htmlClients+="<td>"+childData.Price+"</td>";
+          htmlClients+="<td><a href='#userdelete'class='btn btn-danger btn-circle'><i class='fas fa-trash'onclick=\"graduationdelete("+"'linedeleteregister"+childUID + "', '"+childUID+"')\"" +" ></i></a>";
+          htmlClients+="</td>";
+          htmlClients+="</tr>";
+          htmlClientsAll = htmlClients + htmlClientsAll;
+      if(t == childCounts) {
+          document.getElementById("graduations").innerHTML=htmlClientsAll ;
+      }
+
+     
+  });
+});
+
+//list special photo
+
+database.ref('Special').on('value',function(snapshot){
+  var htmlClientsAll = "";
+  var childCounts = snapshot.numChildren();
+  var t = 0;
+  var i = childCounts + 1;
+ 
+  snapshot.forEach(function(childSnapshot){
+      if(t==0){
+          htmlClientsAll = "";  
+      }
+      t++;
+      i--;
+      var childUID = childSnapshot.key;
+      var childData = childSnapshot.val();
+      var htmlClients="";
+          htmlClients+="<tr>";
+          htmlClients+="<td>"+i+"</td>";
+          htmlClients+="<td class='text-center'><img src=\""+childData.Photo+"\"  class='img-fluid img-thumbnail'style='max-width:100%;max-height:200px; height:auto; display:block;'</td>";          
+          htmlClients+="<td>"+childData.Price+"</td>";
+          htmlClients+="<td><a href='#userdelete'class='btn btn-danger btn-circle'><i class='fas fa-trash'onclick=\"specialdelete("+"'linedeleteregister"+childUID + "', '"+childUID+"')\"" +" ></i></a>";
+          htmlClients+="</td>";
+          htmlClients+="</tr>";
+          htmlClientsAll = htmlClients + htmlClientsAll;
+      if(t == childCounts) {
+          document.getElementById("specials").innerHTML=htmlClientsAll ;
+      }
+
+     
+  });
+});
+function weddingdelete(childUID, user_id) {
+                              
+    database.ref('Wedding').child(user_id).remove().then(resut => {
+     
+      alert("sucessfully deleted");
+
+      var element = document.getElementById(childUID);
+ 
+      document.querySelector("#weddings").removeChild(element);
+
+    });
+
+  }
+function birthdaydelete(childUID, user_id) {
+                              
+    database.ref('Birthday').child(user_id).remove().then(resut => {
+     
+      alert("sucessfully deleted");
+
+      var element = document.getElementById(childUID);
+ 
+      document.querySelector("#birthdays").removeChild(element);
+
+    });
+
+  }
+function graduationdelete(childUID, user_id) {
+                              
+    database.ref('Graduation').child(user_id).remove().then(resut => {
+     
+      alert("sucessfully deleted");
+
+      var element = document.getElementById(childUID);
+ 
+      document.querySelector("#graduations").removeChild(element);
+
+    });
+
+  }
+function specialdelete(childUID, user_id) {
+                              
+    database.ref('Special').child(user_id).remove().then(resut => {
+     
+      alert("sucessfully deleted");
+
+      var element = document.getElementById(childUID);
+ 
+      document.querySelector("#specials").removeChild(element);
+
+    });
+
+  }
 function userdelete(childUID, user_id) {
                               
     database.ref('Clients').child(user_id).remove().then(resut => {
