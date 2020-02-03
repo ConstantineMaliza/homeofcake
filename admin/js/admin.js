@@ -223,43 +223,6 @@ logout.addEventListener('click',(e)=>{
         }
 
         
-          //list of Order
-        
-          database.ref('orders').on('value',function(snapshot){
-            var htmlClientsAll = "";
-            var childCounts = snapshot.numChildren();
-            var t = 0;
-            var i = childCounts + 1;
-           
-            snapshot.forEach(function(childSnapshot){
-                if(t==0){
-                    htmlClientsAll = "";  
-                }
-                t++;
-                i--;
-                var childUID = childSnapshot.key;
-                var childData = childSnapshot.val();
-                var htmlClients="";
-                    htmlClients+="<tr>";
-                    htmlClients+="<td>"+i+"</td>";
-                    htmlClients+="<td>"+childData.FullName+"</td>";
-                    htmlClients+="<td class='text-center'><img src=\""+childData.Photo+"\"  class='img-fluid img-thumbnail'style='max-width:100%;max-height:200px; height:auto; display:block;'</td>";          
-                    htmlClients+="<td>"+childData.Date+"-"+childData.Time+"</td>";
-                    htmlClients+="<td>"+childData.Quantity+"</td>";
-                    htmlClients+="<td>"+childData.Total+"</td>";
-                    htmlClients+="<td>"+childData.Description+"</td>";
-                    htmlClients+="<td><a href='#userdelete'class='btn btn-danger btn-circle'><i class='fas fa-trash'onclick=\"orderdelete("+"'linedeleteregister"+childUID + "', '"+childUID+"')\"" +" ></i></a>";
-                    htmlClients+="</td>";
-                    htmlClients+="</tr>";
-                    htmlClientsAll = htmlClients + htmlClientsAll;
-                if(t == childCounts) {
-                    document.getElementById("orders").innerHTML=htmlClientsAll ;
-                }
-        
-               
-            });
-        });
-       
     });
 });
 
@@ -459,19 +422,7 @@ function userdelete(childUID, user_id) {
     });
 
   }
-function orderdelete(childUID, user_id) {
-                              
-    database.ref('orders').child(user_id).remove().then(resut => {
-     
-      alert("user sucessfully deleted");
 
-      var element = document.getElementById(childUID);
- 
-      document.querySelector("#orders").removeChild(element);
-
-    });
-
-  }
 
 
 
@@ -559,3 +510,4 @@ database.ref('Comments').on('value', function(snapshot) {
 
     });
 });
+// tvet post
