@@ -258,7 +258,7 @@
 	const database = firebase.database();
 	firebase.analytics();
   
-	sessionStorage.getItem("userUID", user_id);
+	const user_id = sessionStorage.getItem("userUID");
 
   function getUrlParameter(name) {
 	 name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
