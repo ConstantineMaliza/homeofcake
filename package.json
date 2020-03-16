@@ -1,24 +1,29 @@
 {
-  "name": "homeofcake",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ConstantineMaliza/homeofcake.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ConstantineMaliza/homeofcake/issues"
-  },
-  "homepage": "https://github.com/ConstantineMaliza/homeofcake#readme",
-  "dependencies": {
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1"
-  }
+    "name": "homeofcake",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "nodemon server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ConstantineMaliza/homeofcake.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/ConstantineMaliza/homeofcake/issues"
+    },
+    "homepage": "https://github.com/ConstantineMaliza/homeofcake#readme",
+    "dependencies": {
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "nexmo": "^2.6.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.2"
+    }
 }
