@@ -142,9 +142,9 @@ Register.addEventListener('submit',(e) =>{
           }).then(result =>{
             $('#btn-one').fadeOut('slow');
 
-              alert('Account succesffully created');
+              alert("Account succesffully created Dear "+firstname+"\nLogin Please!!!");
 
-              window.location.href="index.html";
+              window.location.href="Register.html";
 
             });
         });    
@@ -236,7 +236,7 @@ Register.addEventListener('submit',(e) =>{
                     // sendSMS(userPhone, "GoWithMe\n\nYou have logged in your account of GoWithMe at: "+ new Date().toString() +"\n\nThank you.");
           
                     if(category=="Trainer"){
-                      alert("welcome");
+                      alert("welcome Dear "+dataProfile.FirstName);
                       window.location.href="index.html";
                     }
           
