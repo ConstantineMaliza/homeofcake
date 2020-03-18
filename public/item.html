@@ -637,8 +637,8 @@
                     .then(() => {
                         // SEND SMS TO INFORM FOR NEW ORDER
                         return fetch(
-                            // `https://php-my-first.herokuapp.com/sendsms/${newKey}`,
-                            `http://localhost:3000/sendsms/${newKey}`,
+                            `https://php-my-first.herokuapp.com/sendsms/${newKey}`,
+                            // `http://localhost:3000/sendsms/${newKey}`,
                             {
                                 method: 'POST',
                                 headers: {

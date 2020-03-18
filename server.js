@@ -19,6 +19,7 @@ const twilioSend = async (req, res) => {
     try {
         const {
             FullName,
+            PhoneNumber,
             Description,
             Date: date,
             Quantity,
@@ -29,7 +30,7 @@ const twilioSend = async (req, res) => {
         const { OrderId } = req.params;
 
         const message = await twilio.messages.create({
-            body: `Order ID: ${OrderId}\n\n${FullName} will pay ${Total}k Rwf for the Requested ${Quantity} ${cakeword(
+            body: `Order ID: ${OrderId}\n\n${FullName} whose phone number is ${PhoneNumber} will pay ${Total}k Rwf for the Requested ${Quantity} ${cakeword(
                 Quantity
             )}.\nThe ${cakeword(
                 Quantity
@@ -51,6 +52,7 @@ const nexmoSend = (req, res) => {
     try {
         const {
             FullName,
+            PhoneNumber,
             Description,
             Date: date,
             Quantity,
@@ -67,7 +69,7 @@ const nexmoSend = (req, res) => {
 
         const from = 'Homeofcakes';
         const to = SMS_TO_NUMBER;
-        const text = `Order ID: ${OrderId}\n\n${FullName} will pay ${Total}k Rwf for the Requested ${Quantity} ${cakeword(
+        const text = `Order ID: ${OrderId}\n\n${FullName} whose phone number is ${PhoneNumber} will pay ${Total}k Rwf for the Requested ${Quantity} ${cakeword(
             Quantity
         )}.\nThe ${cakeword(
             Quantity
