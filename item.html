@@ -641,7 +641,8 @@
                                     'Content-Type': 'application/json'
                                 },
                                 body: JSON.stringify({
-                                    FullName,
+									FullName,
+									PhoneNumber: sessionStorage.getItem('PhoneNumber'),
                                     Photo: img.src,
                                     Quantity: itemQuantity.value,
                                     Total: parseInt(itemTotal.textContent),
