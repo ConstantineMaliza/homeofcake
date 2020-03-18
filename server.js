@@ -65,7 +65,7 @@ const nexmoSend = (req, res) => {
             apiSecret: NEXMO_API_SECRET
         });
 
-        const from = 'Home Of Cakes';
+        const from = 'Homeofcakes';
         const to = SMS_TO_NUMBER;
         const text = `Order ID: ${OrderId}\n\n${FullName} will pay ${Total}k Rwf for the Requested ${Quantity} ${cakeword(
             Quantity
