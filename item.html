@@ -142,28 +142,15 @@
         </nav>
         <!-- END nav -->
 
-        <div
-            class="hero-wrap hero-bread"
-            style="background-image: url('images/31.png');"
-        >
-            <div class="container">
-                <div
-                    class="row no-gutters slider-text align-items-center justify-content-center"
-                >
-                    <div class="col-md-9 ftco-animate text-center">
-                        <p class="breadcrumbs">
-                            <span class="mr-2"
-                                ><a href="index.html">Home</a></span
-                            >
-                            <span class="mr-2"
-                                ><a href="index.html">of </a></span
-                            >
-                            <span>Cake</span>
-                        </p>
-                        <h1 class="mb-0 bread">Order</h1>
-                    </div>
-                </div>
-            </div>
+        <div class="hero-wrap hero-bread" style="background-image: url('images/m.jpg');">
+            <div class="container" style="background-color: rgba(0, 0, 0, 0.397);">
+				<div class="row no-gutters slider-text align-items-center justify-content-center" >
+				  <div class="col-md-9 ftco-animate text-center" >
+					  <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span class="mr-2"><a href="index.html">of </a></span> <span>Cake</span></p>
+					<h1 class="mb-0 bread">Order </h1>
+				  </div>
+				</div>
+			  </div>
         </div>
         <section>
             <div class="card text-center">
@@ -421,7 +408,7 @@
                                     </li>
                                     <li>
                                         <a href="homeofcake@gmail.com"
-                                            ><span
+                                            ><span>
                                                 class="icon icon-envelope"
                                             ></span
                                             ><span class="text"
@@ -491,6 +478,16 @@
             firebase.analytics();
 
             const user_id = sessionStorage.getItem('userUID');
+			var isLoggedIn = false;
+
+			if(user_id == null || user_id.length == 0 || user_id == "" || user_id == "null" || user_id == "undefined") {
+
+			isLoggedIn = false;
+			alert("Please Login First!!");
+			window.location.href ='Register.html';
+
+			}else{
+			isLoggedIn = true;
 
             function getUrlParameter(name) {
                 name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -668,7 +665,8 @@
                     });
             }
 
-            form.addEventListener('submit', writeOrder);
+			form.addEventListener('submit', writeOrder);
+		}
         </script>
         <script src="js/jquery.min.js"></script>
         <script src="js/jquery-migrate-3.0.1.min.js"></script>
