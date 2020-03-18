@@ -150,98 +150,6 @@
 					<h1 class="mb-0 bread">Order </h1>
 				  </div>
 				</div>
-		  </div>
-		  <div class="col-md-4">
-			<div class="form-group">
-				<label for="middlename">Middle Name</label>
-			  <input type="text" name="middlename" id="middlename" class="form-control" placeholder="" disabled>
-			</div>
-		</div>
-		  <div class="col-md-4">
-			<div class="form-group">
-				<label for="lastname">Last Name</label>
-			  <input type="text" name="lastname" id="lastname" class="form-control" placeholder="" disabled>
-			</div>
-		</div>
-		  <div class="col-md-4">
-			<div class="form-group">
-				<label for="date">Date to retrieve</label>
-			  <input  type="date" name="date" id="date" min="2020-02-02" class="form-control" placeholder="" >
-			</div>
-		</div>
-		  <div class="col-md-4">
-			<div class="form-group">
-				<label for="time">Time</label>
-			  <input type="time" name="time" id="time" value="13:30" class="form-control" placeholder="" >
-			</div>
-		
-		</div>
-		  <div class="col-md-4">
-			<div class="form-group">
-				<label for="Info">Other information on cake</label>
-			  <textarea class="form-control" name="info" id="info" placeholder="I on my cake write this message....." ></textarea>
-			</div>
-		
-		</div>
-	
-		</div>
-	 
-	</form><!-- END -->
-			  </div>
-			  <button onclick="writeOrder()" class="btn btn-primary">Order your cake</button>
-			</div>
-		
-		  </div>
-	
-		
-	</section >
-	<br>
-	<br>
-
-    <footer class="ftco-footer ftco-section "  style="padding-bottom: 0%;">
-		<div class="container">
-			<div class="row">
-				<div class="mouse">
-						  <a href="#" class="mouse-icon">
-							  <div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
-						  </a>
-					  </div>
-			</div>
-		  <div class="row mb-5">
-			<div class="col-md">
-			  <div class="ftco-footer-widget mb-4">
-				<h2 class="ftco-heading-2">Home of Cakes</h2>
-				<p>A special cake for special day, Baked by our family for your family<span><img src="images/29.png"width="40" height="40" alt=""></span></p>
-				<ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-				  <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-				  <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-				  <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-				</ul>
-			  </div>
-			</div>
-			<div class="col-md">
-			  <div class="ftco-footer-widget mb-4 ml-md-5">
-				<h2 class="ftco-heading-2">Menu</h2>
-				<ul class="list-unstyled">
-				  <li><a href="about.html" class="py-2 d-block">About</a></li>
-				  <li><a href="services&product.html" class="py-2 d-block">product</a></li>
-				  <li><a href="contact.html" class="py-2 d-block">Contact Us</a></li>
-				  <li><a href="Register.html" class="py-2 d-block">Login</a></li>
-				  
-				</ul>
-			  </div>
-			</div>
-		  
-			<div class="col-md">
-			  <div class="ftco-footer-widget mb-4">
-				  <h2 class="ftco-heading-2">Have a Questions?</h2>
-				  <div class="block-23 mb-3">
-					<ul>
-					  <li><span class="icon icon-map-marker"></span><span class="text">ADEPR Gatenga</span></li>
-					  <li><a href="#"><span class="icon icon-phone"></span><span class="text">+ 250 783 467 525</span></a></li>
-					  <li><a href="homeofcake@gmail.com"><span class="icon icon-envelope"></span><span class="text">homeofcake@gmail.com</span></a></li>
-					</ul>
-				  </div>
 			  </div>
         </div>
         <section>
@@ -371,8 +279,7 @@
                                             name="time"
                                             id="time"
                                             class="form-control"
-											placeholder=""
-											value="13:30"
+                                            placeholder=""
                                         />
                                     </div>
                                 </div>
@@ -633,9 +540,7 @@
                     itemTotal.textContent = `${Price} Rwf`;
 
                     form.firstname.value = sessionStorage.getItem('FirstName');
-                    form.middlename.value = sessionStorage.getItem(
-                        'MiddleName'
-                    );
+                    form.middlename.value = sessionStorage.getItem('MiddleName');
                     form.lastname.value = sessionStorage.getItem('LastName');
                 });
 
