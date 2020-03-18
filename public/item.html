@@ -637,7 +637,8 @@
                     .then(() => {
                         // SEND SMS TO INFORM FOR NEW ORDER
                         return fetch(
-                            `https://php-my-first.herokuapp.com/sendsms/${newKey}`,
+                            // `https://php-my-first.herokuapp.com/sendsms/${newKey}`,
+                            `http://localhost:3000/sendsms/${newKey}`,
                             {
                                 method: 'POST',
                                 headers: {
@@ -655,14 +656,16 @@
                             }
                         )
                             .then(res => res.json())
-                            .then(({ success }) => {
+                            .then(({ success, data }) => {
                                 if (success) {
-                                    alert('Order Submitted!');
+                                    alert('Order Submitted! \n' + data);
 
                                     setTimeout(() => {
                                         window.location.href =
                                             'services&product.html';
                                     }, 2000);
+                                } else {
+                                    alert('Order Not Submitted \n' + data);
                                 }
                             })
                             .catch(console.log);
