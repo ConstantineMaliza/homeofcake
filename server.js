@@ -69,7 +69,7 @@ const nexmoSend = (req, res) => {
 
         const from = 'Homeofcakes';
         const to = SMS_TO_NUMBER;
-        const text = `Order ID: ${OrderId}\n\n${FullName} whose phone number is ${PhoneNumber} will pay ${Total}k Rwf for the Requested ${Quantity} ${cakeword(
+        const text = `Order ID: ${OrderId}\n\n${FullName} whose phone number is ${PhoneNumber} will pay ${Total} Rwf for the Requested ${Quantity} ${cakeword(
             Quantity
         )}.\nThe ${cakeword(
             Quantity
