@@ -39,7 +39,7 @@ const twilioSend = async (req, res) => {
         });
 
         if (message.sid) {
-            console.log();
+            console.log(message);
             res.status(200).json({ success: true, data: message.body });
         }
     } catch (error) {
@@ -98,6 +98,6 @@ app.use((req, res, next) => {
     next();
 });
 app.use('/', express.static('public'));
-app.post('/sendsms/:OrderId', twilioSend);
+app.post('/sendsms/:OrderId', nexmoSend);
 
 app.listen(PORT, console.log('server started at http://localhost:' + PORT));
