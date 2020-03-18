@@ -185,6 +185,7 @@ Register.addEventListener('submit',(e) =>{
                     sessionStorage.setItem("FirstName", dataProfile.FirstName);
                     sessionStorage.setItem("MiddleName", dataProfile.MiddleName);
                     sessionStorage.setItem("LastName", dataProfile.LastName);
+                    sessionStorage.setItem("PhoneNumber", dataProfile.PhoneNumber);
                     sessionStorage.setItem("userAccount", category);
           
                     // var userPhone = dataProfile.phone != null ? dataProfile.phone : "";
