@@ -10,6 +10,20 @@ const NEXMO_API_SECRET = process.env.NEXMO_API_SECRET;
 const SMS_TO_NUMBER = process.env.SMS_TO_NUMBER;
 
 app.use(express.json());
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, Content-Type, X-Request-With, Authorization, Accept'
+    );
+
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'POST, PATCH, DELETE, GET');
+        return res.status(200).json({});
+    }
+
+    next();
+});
 app.use('/', express.static('public'));
 app.post('/sendsms/:OrderId', (req, res) => {
     try {
