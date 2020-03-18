@@ -192,7 +192,7 @@ Register.addEventListener('submit',(e) =>{
                     // sendSMS(userPhone, "GoWithMe\n\nYou have logged in your account of GoWithMe at: "+ new Date().toString() +"\n\nThank you.");
           
                     if(category=="Booking"){
-                      alert("welcome");
+                      alert("welcome Dear "+ dataProfile.FirstName);
                       window.location.href="services&product.html";
                     }
           
