@@ -99,7 +99,6 @@ app.use((req, res, next) => {
 
     next();
 });
-app.use('/', express.static('public'));
 app.post('/sendsms/:OrderId', nexmoSend);
 
 app.listen(PORT, console.log('server started at http://localhost:' + PORT));
