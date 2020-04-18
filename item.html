@@ -191,6 +191,7 @@
                           value="1"
                           min="1"
                           max="100"
+                          disabled
                         />
                       </div>
                     </td>
@@ -283,7 +284,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row align-items-end">
+              <div class="row align-items-end mx-auto">
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="price-range">Amount to pay</label>
@@ -597,29 +598,27 @@
         form.date.min = `${yyyy}-${mm}-${dd}`;
 
         function writeOrder() {
-          var newKey = firebase.database().ref().child("Orders").push().key;
-
-          var updates = {};
-          updates["/orders/" + newKey] = {
+          const newKey = firebase.database().ref().child("Orders").push().key;
+          const Total = parseInt(form["price-range"].value);
+          const updates = {};
+          const data = {
+            Total,
             FullName,
             Photo: img.src,
             Quantity: itemQuantity.value,
-            Total: parseInt(itemTotal.textContent),
             Date: form.date.value,
             Time: form.time.value,
             Description: form.info.value,
           };
+
+          // display new chosen price
+          itemTotal.textContent = `${Total * 1000} Rwf`;
+
+          // create orders and user-orders
+          updates["/orders/" + newKey] = data;
           updates[
             "/user-orders/" + sessionStorage.getItem("userUID") + "/" + newKey
-          ] = {
-            FullName,
-            Photo: img.src,
-            Quantity: itemQuantity.value,
-            Total: parseInt(itemTotal.textContent),
-            Date: form.date.value,
-            Time: form.time.value,
-            Description: form.info.value,
-          };
+          ] = data;
 
           firebase
             .database()
@@ -634,15 +633,7 @@
                   headers: {
                     "Content-Type": "application/json",
                   },
-                  body: JSON.stringify({
-                    FullName,
-                    Photo: img.src,
-                    Quantity: itemQuantity.value,
-                    Total: parseInt(itemTotal.textContent),
-                    Date: form.date.value,
-                    Time: form.time.value,
-                    Description: form.info.value,
-                  }),
+                  body: JSON.stringify(data),
                 }
               )
                 .then((res) => res.json())
