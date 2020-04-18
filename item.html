@@ -288,11 +288,9 @@
                   <div class="form-group">
                     <label for="price-range">Amount to pay</label>
                     <select name="price-range" required>
-                      <option value="min" disabled selected
-                        >Choose an amount</option
-                      >
-                      <option value="min">Some Min</option>
-                      <option value="max">Some Max</option>
+                      <option disabled selected>
+                        Choose an amount
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -427,8 +425,6 @@
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-storage.js"></script>
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
 
     <script>
@@ -473,7 +469,21 @@
             ? ""
             : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
+        const generatePriceOptions = (min, max) => {
+          // stabilize min & max
+          min *= 1000;
+          max *= 1000;
 
+          // create the options as HTML
+          const options = [];
+          for (let i = 0; min <= max; i++) {
+            const option = `<option value="${min / 1000}">${min} Rwf</option>`;
+            options.push(option);
+            min += 1000;
+          }
+
+          return options;
+        };
         var postUID = getUrlParameter("postuid");
 
         //post product for Wedding
@@ -492,7 +502,12 @@
           .ref("Wedding")
           .child(postUID)
           .on("value", function (snapshot) {
-            var { Photo, Price } = snapshot.val();
+            var {
+              Photo,
+              Price,
+              "min-amount": min,
+              "max-amount": max,
+            } = snapshot.val();
 
             img.src = Photo;
             price.textContent = `${Price} Rwf`;
@@ -501,13 +516,19 @@
             form.firstname.value = sessionStorage.getItem("FirstName");
             form.middlename.value = sessionStorage.getItem("MiddleName");
             form.lastname.value = sessionStorage.getItem("LastName");
+            form["price-range"].innerHTML = generatePriceOptions(min, max);
           });
 
         database
           .ref("Special")
           .child(postUID)
           .on("value", function (snapshot) {
-            var { Photo, Price } = snapshot.val();
+            var {
+              Photo,
+              Price,
+              "min-amount": min,
+              "max-amount": max,
+            } = snapshot.val();
 
             img.src = Photo;
             price.textContent = `${Price} Rwf`;
@@ -516,13 +537,19 @@
             form.firstname.value = sessionStorage.getItem("FirstName");
             form.middlename.value = sessionStorage.getItem("MiddleName");
             form.lastname.value = sessionStorage.getItem("LastName");
+            form["price-range"].innerHTML += generatePriceOptions(min, max);
           });
 
         database
           .ref("Birthday")
           .child(postUID)
           .on("value", function (snapshot) {
-            var { Photo, Price } = snapshot.val();
+            var {
+              Photo,
+              Price,
+              "min-amount": min,
+              "max-amount": max,
+            } = snapshot.val();
 
             img.src = Photo;
             price.textContent = `${Price} Rwf`;
@@ -531,13 +558,19 @@
             form.firstname.value = sessionStorage.getItem("FirstName");
             form.middlename.value = sessionStorage.getItem("MiddleName");
             form.lastname.value = sessionStorage.getItem("LastName");
+            form["price-range"].innerHTML += generatePriceOptions(min, max);
           });
 
         database
           .ref("Graduation")
           .child(postUID)
           .on("value", function (snapshot) {
-            var { Photo, Price } = snapshot.val();
+            var {
+              Photo,
+              Price,
+              "min-amount": min,
+              "max-amount": max,
+            } = snapshot.val();
 
             img.src = Photo;
             price.textContent = `${Price} Rwf`;
@@ -546,6 +579,7 @@
             form.firstname.value = sessionStorage.getItem("FirstName");
             form.middlename.value = sessionStorage.getItem("MiddleName");
             form.lastname.value = sessionStorage.getItem("LastName");
+            form["price-range"].innerHTML += generatePriceOptions(min, max);
           });
 
         itemQuantity.addEventListener("change", () => {
